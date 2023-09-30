@@ -51,22 +51,24 @@ function guessValue(){
     }else{
     game.guesses++;
     let tempGuess = game.guessInput.value;
-    game.guessInput.value = "";
+    // game.guessInput.value = "";
     tempGuess = parseInt(tempGuess);
     if (isNaN(tempGuess)){
-        message(`Please enter only Digits`, "red");
+        message(`Please enter a number`, "red");
     }else if (tempGuess===game.num){
-        message(`Correct guess of ${game.num} in ${game.guesses} guesses`,"green");
+       var trato = "attempts"; 
+        if (game.guesses == 1){trato = "attempt";}
+        message(` 👌  Correct, It took you just ${game.guesses} ${trato} to guess the number ${game.num}. 👏 `,"green");
         gameOver();
     }else{
         let holder = tempGuess > game.num ?
-            {"c":"blue","m":"Was Lower"}:
-            {"c":"purple","m":"Was Higher"};
+            {"c":"blue","m":`Nope, 👇 is lower than ${game.guessInput.value} 👇`}:
+            {"c":"purple","m":`Nope, 👆 is higher than ${game.guessInput.value} 👆`};
         message(holder.m, holder.c);
     }
+    game.guessInput.value = "";
   }
 }
-
 
 function gameOver(){
     game.btn.innerHTML = "Restart Game";
@@ -78,7 +80,7 @@ function gameOver(){
 function init(){
     game.guesses=0;
     game.num = rndNumber(game.min, game.max);
-    let tempMes = `Welcome to the game. Guess a number from ${game.min} to ${game.max}`;
+    let tempMes = `Guess a number from ${game.min} to ${game.max}`;
   message(tempMes, "blue");
 }
 
